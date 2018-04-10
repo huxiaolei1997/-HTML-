@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		.divcss {
+			width: 50px;
+			height: 50px;
+			border: 1px solid blue;
+		}
+	</style>
+</head>
+<body>
+<!-- 事件冒泡 -->
+<div id="parent" style="width: 200px; height: 200px; border: 1px solid red;">
+	parent
+	<div id="child" class="divcss">child</div>
+</div>
+<button id="append_div" onclick="appendDiv();">动态添加节点</button>
+<script type="text/javascript">
+	//事件冒泡
+	// document.getElementById("parent").addEventListener('click', function(e) {
+	// 	alert("parent事件被触发：" + this.id);
+	// });
+	// document.getElementById("child").addEventListener('click', function(e) {
+	// 	alert("child事件被触发：" + this.id);
+	// });
+	//最后的执行结果是点击child节点，先触发child节点上的click事件，然后再触发parent节点上的事件。但是jQuery的e.stopPropagation会阻止冒泡，意思就是到我为止，我的爹和祖宗的事件就不要触发了。 触发的顺序自内向外，这就是事件冒泡。
+
+	// 事件捕获
+	// document.getElementById("parent").addEventListener('click', function(e) {
+	// 	alert("parent事件被触发：" + this.id);
+	// }, true);
+	// document.getElementById("child").addEventListener('click', function(e) {
+	// 	alert("child事件被触发：" + this.id);
+	// }, true);
+	// 最后的执行结果是点击child节点，先触发parent节点绑定的事件，然后再触发child节点绑定的事件，执行顺序是自外向内的，和事件冒泡正好相反。
+
+	function appendDiv() {
+		var para = document.createElement("div");
+		var node = document.createTextNode("new content");
+		para.appendChild(node);
+		para.className = 'divcss';
+		para.id = 'child2';
+		// 绑定click事件
+		para.onclick = test_click;
+		var element = document.getElementById("parent");
+		element.appendChild(para);
+	}
+
+	function test_click() {
+		alert("这是动态添加的节点！");
+	}
+</script>
+</body>
+</html>
