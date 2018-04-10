@@ -29,12 +29,12 @@
 	//最后的执行结果是点击child节点，先触发child节点上的click事件，然后再触发parent节点上的事件。但是jQuery的e.stopPropagation会阻止冒泡，意思就是到我为止，我的爹和祖宗的事件就不要触发了。 触发的顺序自内向外，这就是事件冒泡。
 
 	// 事件捕获
-	// document.getElementById("parent").addEventListener('click', function(e) {
-	// 	alert("parent事件被触发：" + this.id);
-	// }, true);
-	// document.getElementById("child").addEventListener('click', function(e) {
-	// 	alert("child事件被触发：" + this.id);
-	// }, true);
+	document.getElementById("parent").addEventListener('click', function(e) {
+		alert("parent事件被触发：" + this.id);
+	}, true);
+	document.getElementById("child").addEventListener('click', function(e) {
+		alert("child事件被触发：" + this.id);
+	}, true);
 	// 最后的执行结果是点击child节点，先触发parent节点绑定的事件，然后再触发child节点绑定的事件，执行顺序是自外向内的，和事件冒泡正好相反。
 
 	function appendDiv() {
